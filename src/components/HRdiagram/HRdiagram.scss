@@ -1,0 +1,17 @@
+.HRdiagramWrapper {
+  min-width: 50rem;
+  min-height: 40rem;
+  background-color: blanchedalmond;
+
+  .HRdiagram {
+    width: 100%;
+    height: 100%;
+  }
+
+  .leftScale {
+  }
+
+  .bottomScale li {
+    display: inline;
+  }
+}
