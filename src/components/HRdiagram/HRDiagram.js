@@ -6,34 +6,37 @@ import {Point} from "../Point/Point";
 // console.table(styles)
 
 export class HRDiagram extends React.Component {
-    point;
+    pointX;
+    pointY;
+
     constructor(props) {
         super(props);
-        this.point = new Point({x:props.x, y:props.y});
+        this.pointX = props.x;
+        this.pointY = props.y;
     }
 
-    setPointX(x){
-        this.point.setX(x);
+    setPointX(x) {
+        this.pointX = x;
     }
 
-    setPointY(y){
-        this.point.setY(y);
-    }
-    getPointX(){
-        return this.point.getX();
-    }
-    getPointY(){
-        return this.point.getY();
+    setPointY(y) {
+        this.pointY = y;
     }
 
-    incX(){
-        let x = this.getPointX();
-        this.point.setX(x+1);
+    getPointX() {
+        return this.pointX;
     }
 
-    incY(){
-        let y = this.getPointY();
-        this.point.setY(y+1);
+    getPointY() {
+        return this.pointY;
+    }
+
+    incX() {
+        this.pointX++;
+    }
+
+    incY() {
+        this.pointY++;
     }
 
 
@@ -57,14 +60,15 @@ export class HRDiagram extends React.Component {
     }
 
     tick() {
-        this.incX()
-        this.incY()
-        let x = this.getPointX();
-        let y = this.getPointY();
-        this.setState({      point:     new Point(x, y)
+        this.incX();
+        this.incY();
+        this.setState({
+            x:this.x,
+            y:this.y
         });
-        console.log("X: "+this.getPointX()+" Y:" +this.getPointY())
-        console.log("Comp: " +this.getComponent())
+        console.log("X: " + this.getPointX() + " Y:" + this.getPointY())
+        console.log("Comp: " + this.getComponent())
+        // render()
     }
 
     render() {
@@ -75,7 +79,7 @@ export class HRDiagram extends React.Component {
             <div>
                 <div className={styles.HRDiagramWrapper}>
                     <div className={styles.HRDiagram}>
-                        {this.point.getComponent()}
+                        <div className={styles.point} style={{top: this.y + "%", left: this.x + "%"}}/>
                         <div className={styles.leftScale}>
                             <ul>
                                 {this.genList(0.00001, 1000000, 10)}
@@ -91,11 +95,15 @@ export class HRDiagram extends React.Component {
 
                 </div>
             </div>);
+
+
     }
-    getComponent(){
-        return (<HRDiagram x = {this.getPointX()} y = {this.getPointX()} />);
+    getComponent() {
+        return (<HRDiagram x={this.getPointX()} y={this.getPointX()}/>);
     }
-    getPoint(){
+
+    getPoint() {
         return this.point;
     }
+
 }

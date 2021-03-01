@@ -47,3 +47,13 @@
   }
 
 }
+.point{
+  position: relative;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 3rem;
+  background-color: red;
+  z-index: 2;
+  top:0;
+  left:0;
+}
