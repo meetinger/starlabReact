@@ -6,4 +6,7 @@ import {HRDiagram} from './components/HRdiagram/HRDiagram'
 
 // ReactDOM.render(<App />, document.getElementById('root'));
 // ReactDOM.render(navbar, document.getElementById('root'));
-ReactDOM.render(<HRDiagram/>, document.getElementById('root'));
+let element = new HRDiagram({x:10, y:10})
+// console.log("X: "+element.getPointX()+" Y:" +element.getPointY())
+
+ReactDOM.render(element.getComponent(), document.getElementById('root'));
