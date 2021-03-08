@@ -44,13 +44,13 @@ export class HRDiagram extends React.Component {
 
     incX() {
         this.setState({
-            pointX: this.state.pointX+1
+            pointX: this.state.pointX + 1
         })
     }
 
     incY() {
         this.setState({
-            pointY: this.state.pointY+1
+            pointY: this.state.pointY + 1
         })
     }
 
@@ -93,28 +93,29 @@ export class HRDiagram extends React.Component {
         // this.startTimer();
         return (
             // const
-            <div>
-                <div className={styles.HRDiagramWrapper}>
-                    <div className={styles.HRDiagram}>
-                        <div className={styles.point} style={{top: this.state.pointY + "%", left: this.state.pointX + "%"}}/>
-                        <div className={styles.leftScale}>
-                            <ul>
-                                {this.genList(0.00001, 1000000, 10)}
-                            </ul>
-                        </div>
-
-                        <div className={styles.bottomScale}>
-                            <ul>
-                                {this.genList(1000, 100000, 10)}
-                            </ul>
-                        </div>
+            <div className={styles.HRDiagramWrapper}>
+                <div className={styles.HRDiagram}>
+                    <div className={styles.point}
+                         style={{top: this.state.pointY + "%", left: this.state.pointX + "%"}}/>
+                    <div className={styles.leftScale}>
+                        <ul>
+                            {this.genList(0.00001, 1000000, 10)}
+                        </ul>
                     </div>
 
+                    <div className={styles.bottomScale}>
+                        <ul>
+                            {this.genList(1000, 100000, 10)}
+                        </ul>
+                    </div>
                 </div>
+
+
             </div>);
 
 
     }
+
     getComponent() {
         return (<HRDiagram x={this.state.pointX} y={this.state.pointY}/>);
     }

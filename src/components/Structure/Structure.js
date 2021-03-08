@@ -50,7 +50,7 @@ export class Structure extends React.Component {
         this.state = {
             shells: props.shells,
         }
-        console.log("PROPS: ",props)
+        console.log("PROPS: ", props)
         // console.log("State: ",this.state)
     }
 
@@ -71,10 +71,10 @@ export class Structure extends React.Component {
         let tmp = this.state.shells
 
         let tmp_size = parseInt(tmp[0].size, 10)
-        if(tmp_size>20){
-            tmp[0].size = (tmp_size-10)+"rem"
+        if(tmp_size>15){
+            tmp[0].size = (tmp_size-5)+"rem"
         }else{
-            tmp[0].size = (tmp_size+10)+"rem"
+            tmp[0].size = (tmp_size+5)+"rem"
         }
 
         this.setState({
@@ -82,10 +82,6 @@ export class Structure extends React.Component {
         });
         // console.log(this.state.shells)
         // render()
-    }
-
-    getComponent(){
-        return this.genShells(this.state.shells, 0)
     }
 
     render() {
