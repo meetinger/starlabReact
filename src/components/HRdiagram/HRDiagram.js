@@ -7,6 +7,8 @@ import {Point} from "../Point/Point";
 
 export class HRDiagram extends React.Component {
 
+    flag = false;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -63,30 +65,38 @@ export class HRDiagram extends React.Component {
         return buf;
     }
 
-    // componentDidMount() {
-    //     this.timerID = setInterval(
-    //         () => this.tick(),
-    //         500
-    //     );
-    // }
-    //
-    // componentWillUnmount() {
-    //     clearInterval(this.timerID);
-    // }
-    //
-    // tick() {
-    //     this.incX();
-    //     this.incY();
-    //     this.setState({
-    //         pointX:this.getPointX(),
-    //         pointY:this.getPointY()
-    //     });
-    //     console.log("X: " + this.getPointX() + " Y:" + this.getPointY())
-    //     console.log("StateX: " + this.state.x + " StateY:" + this.state.y)
-    //     console.log("State:",this.state)
-    //     console.log("Comp: " + this.getComponent())
-    //     // render()
-    // }
+    componentDidMount() {
+        this.timerID = setInterval(
+            () => this.tick(),
+            500
+        );
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timerID);
+    }
+
+    tick() {
+        if(this.flag){
+            this.setState({
+                pointX:65,
+                pointY:75
+            });
+            this.flag=false
+        }else{
+            this.setState({
+                pointX:70,
+                pointY:20
+            });
+            this.flag=true;
+        }
+
+        console.log("X: " + this.getPointX() + " Y:" + this.getPointY())
+        console.log("StateX: " + this.state.x + " StateY:" + this.state.y)
+        console.log("State:",this.state)
+        console.log("Comp: " + this.getComponent())
+        // render()
+    }
 
     render() {
         // console.log(11111)

@@ -30,7 +30,7 @@ export class Main extends React.Component {
         return (<div className={styles.main}>
             {Navbar}
             <div className={styles.body}>
-                <HRDiagram x={20} y={70}/>
+                <HRDiagram x={50} y={50}/>
                 <div className={styles.structureWrapper}>
                     <Structure shells={arr}/>
                 </div>
