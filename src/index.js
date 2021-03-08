@@ -6,21 +6,21 @@ import {HRDiagram} from './components/HRdiagram/HRDiagram'
 import {Point} from "./components/Point/Point";
 import {Structure} from "./components/Structure/Structure";
 
-// ReactDOM.render(<App />, document.getElementById('root'));
-// ReactDOM.render(navbar, document.getElementById('root'));
-ReactDOM.render(<Structure />, document.getElementById('root'));
-
-// console.log("X: "+element.getPointX()+" Y:" +element.getPointY())
-
-
-// let element = new HRDiagram({x:10, y:10})
-// ReactDOM.render(element.getComponent(), document.getElementById('root'));
-// element.setPointX(30)
-
-// ReactDOM.render(element.getComponent(), document.getElementById('root'));
-
-// let element = <HRDiagram x={10} y={5}/>
-// ReactDOM.render(element, document.getElementById('root'))
-// element.incX();
-
-
+let arr = [{
+    matter: "H",
+    color: [255, 50, 0],
+    size: "50rem"
+}, {
+    matter: "He",
+    color: [255, 234, 100],
+    size: "5rem"
+},
+    {
+        matter: "C",
+        color: [10, 10, 10],
+        size: "3rem"
+    }
+];
+// let structure = new Structure(arr)
+// ReactDOM.render(structure.getComponent(), document.getElementById('root'));
+ReactDOM.render(<Structure shells = {arr}/>, document.getElementById('root'));

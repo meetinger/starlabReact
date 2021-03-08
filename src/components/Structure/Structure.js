@@ -19,9 +19,9 @@ export class Structure extends React.Component {
     // }
     genShells(arr, index) {
         let i = arr[index];
-        console.log(i)
-
-        console.log(index)
+        // console.log(i)
+        //
+        // console.log("GENSHELLS: ",i)
 
         if (index < arr.length) {
             let shellStyle = {
@@ -41,30 +41,56 @@ export class Structure extends React.Component {
                 <div style={labelStyle} className={styles.matterLabel}>{i.matter}</div>
                 {this.genShells(arr, index + 1)}</div>;
         } else {
-            return "";
+            return;
         }
     }
 
     constructor(props) {
         super(props);
+        this.state = {
+            shells: props.shells,
+        }
+        console.log("PROPS: ",props)
+        // console.log("State: ",this.state)
+    }
+
+
+
+    componentDidMount() {
+        this.timerID = setInterval(
+            () => this.tick(),
+            500
+        );
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timerID);
+    }
+
+    tick() {
+        let tmp = this.state.shells
+
+        let tmp_size = parseInt(tmp[0].size, 10)
+        if(tmp_size>20){
+            tmp[0].size = (tmp_size-10)+"rem"
+        }else{
+            tmp[0].size = (tmp_size+10)+"rem"
+        }
+
+        this.setState({
+            shells: tmp
+        });
+        // console.log(this.state.shells)
+        // render()
+    }
+
+    getComponent(){
+        return this.genShells(this.state.shells, 0)
     }
 
     render() {
-        let arr = [{
-            matter: "H",
-            color: [255, 50, 0],
-            size: "50rem"
-        }, {
-            matter: "He",
-            color: [255, 234, 100],
-            size: "5rem"
-        },
-            {
-                matter: "C",
-                color: [10, 10, 10],
-                size: "3rem"
-            }
-        ]
-        return this.genShells(arr, 0)
+        console.log("RENDER: ",this.state.shells)
+        return this.genShells(this.state.shells, 0)
     }
+
 }
