@@ -23,11 +23,15 @@ export class HRDiagram extends React.Component {
     }
 
     setPointX(x) {
-        this.pointX = x;
+        this.setState({
+            pointX: x
+        })
     }
 
     setPointY(y) {
-        this.pointY = y;
+        this.setState({
+            pointY: y
+        })
     }
 
     getPointX() {
@@ -59,30 +63,30 @@ export class HRDiagram extends React.Component {
         return buf;
     }
 
-    componentDidMount() {
-        this.timerID = setInterval(
-            () => this.tick(),
-            500
-        );
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.timerID);
-    }
-
-    tick() {
-        this.incX();
-        this.incY();
-        this.setState({
-            pointX:this.getPointX(),
-            pointY:this.getPointY()
-        });
-        console.log("X: " + this.getPointX() + " Y:" + this.getPointY())
-        console.log("StateX: " + this.state.x + " StateY:" + this.state.y)
-        console.log("State:",this.state)
-        console.log("Comp: " + this.getComponent())
-        // render()
-    }
+    // componentDidMount() {
+    //     this.timerID = setInterval(
+    //         () => this.tick(),
+    //         500
+    //     );
+    // }
+    //
+    // componentWillUnmount() {
+    //     clearInterval(this.timerID);
+    // }
+    //
+    // tick() {
+    //     this.incX();
+    //     this.incY();
+    //     this.setState({
+    //         pointX:this.getPointX(),
+    //         pointY:this.getPointY()
+    //     });
+    //     console.log("X: " + this.getPointX() + " Y:" + this.getPointY())
+    //     console.log("StateX: " + this.state.x + " StateY:" + this.state.y)
+    //     console.log("State:",this.state)
+    //     console.log("Comp: " + this.getComponent())
+    //     // render()
+    // }
 
     render() {
         // console.log(11111)
@@ -112,7 +116,7 @@ export class HRDiagram extends React.Component {
 
     }
     getComponent() {
-        return (<HRDiagram x={this.getPointX()} y={this.getPointX()}/>);
+        return (<HRDiagram x={this.state.pointX} y={this.state.pointY}/>);
     }
 
     getPoint() {

@@ -10,6 +10,7 @@ export class Point extends React.Component {
 
     constructor(props) {
         super(props);
+
         this.x = props.x;
         this.y = props.y;
     }
