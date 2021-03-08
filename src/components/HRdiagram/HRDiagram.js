@@ -6,13 +6,20 @@ import {Point} from "../Point/Point";
 // console.table(styles)
 
 export class HRDiagram extends React.Component {
-    pointX;
-    pointY;
 
     constructor(props) {
         super(props);
-        this.pointX = props.x;
-        this.pointY = props.y;
+        this.state = {
+            pointX: props.x,
+            pointY: props.y
+        }
+        // this.state.pointX = props.x;
+        // this.state.pointY = props.y;
+        // this.setState({
+        //     pointX: this.props.x,
+        //     pointY: this.props.y
+        // });
+        console.log(this.state)
     }
 
     setPointX(x) {
@@ -24,19 +31,23 @@ export class HRDiagram extends React.Component {
     }
 
     getPointX() {
-        return this.pointX;
+        return this.state.pointX;
     }
 
     getPointY() {
-        return this.pointY;
+        return this.state.pointY;
     }
 
     incX() {
-        this.pointX++;
+        this.setState({
+            pointX: this.state.pointX+1
+        })
     }
 
     incY() {
-        this.pointY++;
+        this.setState({
+            pointY: this.state.pointY+1
+        })
     }
 
 
@@ -63,10 +74,12 @@ export class HRDiagram extends React.Component {
         this.incX();
         this.incY();
         this.setState({
-            x:this.x,
-            y:this.y
+            pointX:this.getPointX(),
+            pointY:this.getPointY()
         });
         console.log("X: " + this.getPointX() + " Y:" + this.getPointY())
+        console.log("StateX: " + this.state.x + " StateY:" + this.state.y)
+        console.log("State:",this.state)
         console.log("Comp: " + this.getComponent())
         // render()
     }
@@ -79,7 +92,7 @@ export class HRDiagram extends React.Component {
             <div>
                 <div className={styles.HRDiagramWrapper}>
                     <div className={styles.HRDiagram}>
-                        <div className={styles.point} style={{top: this.y + "%", left: this.x + "%"}}/>
+                        <div className={styles.point} style={{top: this.state.pointY + "%", left: this.state.pointX + "%"}}/>
                         <div className={styles.leftScale}>
                             <ul>
                                 {this.genList(0.00001, 1000000, 10)}
