@@ -10,7 +10,7 @@ export const Navbar = (
         </div>
 
         <div>
-            <div>lol</div>
+            <div></div>
         </div>
     </nav>
 )

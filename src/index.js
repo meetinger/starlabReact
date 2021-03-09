@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './base.scss';
 import {Main} from "./components/Main/Main";
 
 // let arr = [{

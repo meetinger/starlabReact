@@ -1,7 +1,9 @@
 .navbar{
   display: flex;
   justify-content: space-between;
-   .logo{
+  padding: 1rem 0;
+
+  .logo{
      display: block;
      background-image: url("img/logo.png");
      background-position: center;

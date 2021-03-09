@@ -8,7 +8,44 @@
   min-width: 30%;
 }
 .body{
-  display: flex;
+  //display: flex;
   border: solid #0088ff;
   border-radius: 0.65rem;
+  //flex-wrap: wrap;
+  //background-color: blanchedalmond;
+}
+.section{
+  display: flex;
+  width: 100%;
+}
+.properties{
+
+}
+
+.doubleInputGroup{
+  display: flex;
+}
+.inputGroup{
+  padding: 1rem;
+  width: 50%;
+}
+.inputField{
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  border: #fdfdfd solid 0.1rem;
+  box-shadow: 0.05rem 0.1rem 0.1rem 0.1rem rgba(0,0,0,0.1);
+  transition: 0.2s;
+  margin:  0.5rem 1rem;
+  width: calc(100% - 3rem);
+  display: block;
+}
+.inputField:hover{
+  box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.2);
+}
+.inputField:focus{
+  border: #35ffaa solid 0.1rem;
+}
+.inputLabel{
+  margin: 1rem;
 }

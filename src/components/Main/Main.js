@@ -30,9 +30,25 @@ export class Main extends React.Component {
         return (<div className={styles.main}>
             {Navbar}
             <div className={styles.body}>
-                <HRDiagram x={50} y={50}/>
-                <div className={styles.structureWrapper}>
-                    <Structure shells={arr}/>
+                <div className={styles.section}>
+                    <HRDiagram x={50} y={50}/>
+                    <div className={styles.structureWrapper}>
+                        {/*<div></div>*/}
+                        <Structure shells={arr}/>
+                    </div>
+                </div>
+                <div>
+                    <div className="text-center margin-1rem">Properties:</div>
+                    <div className={styles.doubleInputGroup}>
+                        <div className={styles.inputGroup}>
+                            <div>
+                                <small className={styles.inputLabel}>Mass:</small>
+                            </div>
+                            <div>
+                                <input className={styles.inputField} type="text" placeholder="Mass"/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>)
