@@ -8,18 +8,69 @@ export class Main extends React.Component {
     let
     calculated = [
         {
-            structure: {},
-            state: {
+            structure: [{
+                matter: "H",
+                color: [255, 50, 0],
+                size: "20rem"
+            }, {
+                matter: "He",
+                color: [255, 234, 100],
+                size: "10rem"
+            }
+            ],
+            properties: {
                 luminosity: 1,
-                temperature: 5000,
-                stage: "Main Sequence"
+                temperature: 100000,
+                stage: "Main Sequence",
+                age: 0
             },
-            delay: 0
-        }
+            delay: 2000
+        },
+        // {
+        //     structure: [{
+        //         matter: "H",
+        //         color: [255, 50, 0],
+        //         size: "20rem"
+        //     }, {
+        //         matter: "He",
+        //         color: [255, 234, 100],
+        //         size: "15rem"
+        //     }
+        //     ],
+        //     properties: {
+        //         luminosity: 75,
+        //         temperature: 20,
+        //         stage: "AGB",
+        //         age: 100000
+        //     },
+        //     delay: 2000
+        // }
     ]
 
     constructor(props) {
         super(props);
+        // this.state.stage = this.calculated[0]
+        this.state = {
+            stage: this.calculated[0]
+        }
+        this.start()
+
+    }
+
+    setStage(stg) {
+        this.setState({
+                stage: stg
+            }
+        )
+        console.log("STG: ", stg)
+    }
+
+    start() {
+        let delay = 0;
+        for (let i of this.calculated) {
+            delay+=i.delay
+            setTimeout(this.setStage.bind(this), delay, i);
+        }
     }
 
     render() {
@@ -43,11 +94,12 @@ export class Main extends React.Component {
         return (<div className={styles.main}>
             {Navbar}
             <div className={styles.body}>
+                <p>{this.state.stage.properties.stage}</p>
                 <div className={styles.section}>
-                    <HRDiagram x={50} y={50}/>
+                    <HRDiagram x={this.state.stage.properties.temperature} y={this.state.stage.properties.luminosity}/>
                     <div className={styles.structureWrapper}>
                         {/*<div></div>*/}
-                        <Structure shells={arr}/>
+                        <Structure shells={this.state.stage.structure}/>
                     </div>
                 </div>
                 <div>

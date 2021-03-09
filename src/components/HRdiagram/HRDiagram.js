@@ -12,8 +12,8 @@ export class HRDiagram extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            pointX: props.x,
-            pointY: props.y
+            pointX: this.getXByTemperature(props.x),
+            pointY: this.getYByLuminosity(props.y)
         }
         // this.state.pointX = props.x;
         // this.state.pointY = props.y;
@@ -24,36 +24,22 @@ export class HRDiagram extends React.Component {
         console.log(this.state)
     }
 
-    setPointX(x) {
+    getYByLuminosity(val) {
+        return 100 -
+            (50 + Math.log10(val)*10)
+    }
+
+
+    getXByTemperature(val) {
+        return 169-
+            ( + Math.log10(val)*27.5)
+    }
+
+    componentWillReceiveProps(nextProps) {
         this.setState({
-            pointX: x
-        })
-    }
-
-    setPointY(y) {
-        this.setState({
-            pointY: y
-        })
-    }
-
-    getPointX() {
-        return this.state.pointX;
-    }
-
-    getPointY() {
-        return this.state.pointY;
-    }
-
-    incX() {
-        this.setState({
-            pointX: this.state.pointX + 1
-        })
-    }
-
-    incY() {
-        this.setState({
-            pointY: this.state.pointY + 1
-        })
+            pointX: this.getXByTemperature(nextProps.x),
+            pointY: this.getYByLuminosity(nextProps.y)
+        });
     }
 
 
@@ -65,38 +51,38 @@ export class HRDiagram extends React.Component {
         return buf;
     }
 
-    componentDidMount() {
-        this.timerID = setInterval(
-            () => this.tick(),
-            500
-        );
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.timerID);
-    }
-
-    tick() {
-        if(this.flag){
-            this.setState({
-                pointX:65,
-                pointY:75
-            });
-            this.flag=false
-        }else{
-            this.setState({
-                pointX:70,
-                pointY:20
-            });
-            this.flag=true;
-        }
-
-        console.log("X: " + this.getPointX() + " Y:" + this.getPointY())
-        console.log("StateX: " + this.state.x + " StateY:" + this.state.y)
-        console.log("State:",this.state)
-        console.log("Comp: " + this.getComponent())
-        // render()
-    }
+    // componentDidMount() {
+    //     this.timerID = setInterval(
+    //         () => this.tick(),
+    //         500
+    //     );
+    // }
+    //
+    // componentWillUnmount() {
+    //     clearInterval(this.timerID);
+    // }
+    //
+    // tick() {
+    //     if(this.flag){
+    //         this.setState({
+    //             pointX:65,
+    //             pointY:75
+    //         });
+    //         this.flag=false
+    //     }else{
+    //         this.setState({
+    //             pointX:70,
+    //             pointY:20
+    //         });
+    //         this.flag=true;
+    //     }
+    //
+    //     console.log("X: " + this.getPointX() + " Y:" + this.getPointY())
+    //     console.log("StateX: " + this.state.x + " StateY:" + this.state.y)
+    //     console.log("State:",this.state)
+    //     console.log("Comp: " + this.getComponent())
+    //     // render()
+    // }
 
     render() {
         // console.log(11111)
