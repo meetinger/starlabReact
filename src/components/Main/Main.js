@@ -5,6 +5,19 @@ import {HRDiagram} from "../HRdiagram/HRDiagram";
 import {Structure} from "../Structure/Structure";
 
 export class Main extends React.Component {
+    let
+    calculated = [
+        {
+            structure: {},
+            state: {
+                luminosity: 1,
+                temperature: 5000,
+                stage: "Main Sequence"
+            },
+            delay: 0
+        }
+    ]
+
     constructor(props) {
         super(props);
     }
