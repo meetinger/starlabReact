@@ -13,21 +13,22 @@ export class HRDiagram extends React.Component {
 
     constructor(props) {
         super(props);
+
         if (props.track === undefined) {
             this.state = {
-                pointX: this.getXByTemperature(props.x),
-                pointY: this.getYByLuminosity(props.y),
+                temperature: props.temperature,
+                luminosity: props.luminosity,
                 track: []
             }
         } else {
             this.state = {
-                pointX: this.getXByTemperature(props.x),
-                pointY: this.getYByLuminosity(props.y),
+                temperature: props.temperature,
+                luminosity: props.luminosity,
                 track: props.track
             }
         }
     }
-    
+
 
 getYByLuminosity(val)
 {
@@ -44,8 +45,8 @@ getXByTemperature(val)
 componentWillReceiveProps(nextProps)
 {
     this.setState({
-        pointX: this.getXByTemperature(nextProps.x),
-        pointY: this.getYByLuminosity(nextProps.y)
+        temperature: nextProps.temperature,
+        luminosity: nextProps.luminosity
     });
 }
 
@@ -61,7 +62,7 @@ genList(a, b, multiplier)
 
 getPointsDist(a, b)
 {
-    return Math.sqrt(Math.pow(this.getXByTemperature(b.temperature) - this.getXByTemperature(a.temperature), 2) + Math.pow(this.getYByLuminosity(b.luminosity) - this.getYByLuminosity(a.luminosity), 2))
+    return Math.sqrt(Math.pow(b.temperature - a.temperature, 2) + Math.pow(b.luminosity - a.luminosity, 2))
 }
 
 genTrack(arr)
@@ -86,8 +87,8 @@ render()
             <div className={styles.HRDiagram}>
                 <div className={styles.point}
                      style={{
-                         top: "calc(" + this.state.pointY + "% - 0.25rem)",
-                         left: "calc(" + this.state.pointX + "% - 0.25rem)"
+                         top: "calc(" + this.getYByLuminosity(this.state.luminosity) + "% - 0.25rem)",
+                         left: "calc(" + this.getXByTemperature(this.state.temperature) + "% - 0.25rem)"
                      }}/>
                 <div></div>
                 {this.genTrack(this.state.track)}

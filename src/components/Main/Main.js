@@ -131,7 +131,7 @@ export class Main extends React.Component {
             <div className={styles.body}>
                 <p>{this.state.stage.properties.stage}</p>
                 <div className={styles.section}>
-                    <HRDiagram x={this.state.stage.properties.temperature} y={this.state.stage.properties.luminosity}
+                    <HRDiagram temperature={this.state.stage.properties.temperature} luminosity={this.state.stage.properties.luminosity}
                                track={this.extractTrack()}/>
                     <div className={styles.structureWrapper}>
                         {/*<div></div>*/}
