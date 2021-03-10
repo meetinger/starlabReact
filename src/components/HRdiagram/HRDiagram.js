@@ -33,8 +33,7 @@ export class HRDiagram extends React.Component {
 
 
     getXByTemperature(val) {
-        return 100 -
-            (50 + Math.log10(val)*10)
+        return 100 - Math.log10(val)*80 + 268
     }
 
     componentWillReceiveProps(nextProps) {

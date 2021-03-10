@@ -20,7 +20,7 @@ export class Main extends React.Component {
             ],
             properties: {
                 luminosity: 1,
-                temperature: 1,
+                temperature: 30000,
                 stage: "Main Sequence",
                 age: 0
             },
