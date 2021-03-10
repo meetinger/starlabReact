@@ -15,36 +15,59 @@ export class Main extends React.Component {
             }, {
                 matter: "He",
                 color: [255, 234, 100],
-                size: "10rem"
+                size: "3rem"
             }
             ],
             properties: {
                 luminosity: 1,
-                temperature: 30000,
+                temperature: 5600,
                 stage: "Main Sequence",
+                age: 0
+            },
+            delay: 1000
+        },
+        {
+            structure: [{
+                matter: "H",
+                color: [255, 50, 0],
+                size: "25rem"
+            }, {
+                matter: "He",
+                color: [255, 234, 100],
+                size: "4rem"
+            }
+            ],
+            properties: {
+                luminosity: 2,
+                temperature: 4000,
+                stage: "SubGiant",
                 age: 0
             },
             delay: 2000
         },
-        // {
-        //     structure: [{
-        //         matter: "H",
-        //         color: [255, 50, 0],
-        //         size: "25rem"
-        //     }, {
-        //         matter: "He",
-        //         color: [255, 234, 100],
-        //         size: "15rem"
-        //     }
-        //     ],
-        //     properties: {
-        //         luminosity: 75,
-        //         temperature: 20,
-        //         stage: "AGB",
-        //         age: 100000
-        //     },
-        //     delay: 2000
-        // }
+        {
+            structure: [{
+                matter: "H",
+                color: [255, 50, 0],
+                size: "25rem"
+            }, {
+                matter: "He",
+                color: [255, 234, 100],
+                size: "7rem"
+            }, {
+                matter: "С",
+                color: [0, 0, 0],
+                size: "2rem"
+            }
+            ],
+            properties: {
+                luminosity: 10,
+                temperature: 3000,
+                stage: "RGB",
+                age: 0
+            },
+            delay: 2000
+        },
     ]
 
     constructor(props) {
@@ -67,10 +90,20 @@ export class Main extends React.Component {
 
     start() {
         let delay = 0;
-        for (let i of this.calculated) {
-            delay+=i.delay
-            setTimeout(this.setStage.bind(this), delay, i);
+        for (let j = 0; j < 5; ++j) {
+            for (let i of this.calculated) {
+                delay += i.delay
+                setTimeout(this.setStage.bind(this), delay, i);
+            }
         }
+    }
+
+    extractTrack() {
+        let track = []
+        for (let i of this.calculated) {
+            track.push({luminosity: i.properties.luminosity, temperature: i.properties.temperature})
+        }
+        return track
     }
 
     render() {
@@ -90,13 +123,16 @@ export class Main extends React.Component {
             }
         ]
 
+        let track = []
+
 
         return (<div className={styles.main}>
             {Navbar}
             <div className={styles.body}>
                 <p>{this.state.stage.properties.stage}</p>
                 <div className={styles.section}>
-                    <HRDiagram x={this.state.stage.properties.temperature} y={this.state.stage.properties.luminosity}/>
+                    <HRDiagram x={this.state.stage.properties.temperature} y={this.state.stage.properties.luminosity}
+                               track={this.extractTrack()}/>
                     <div className={styles.structureWrapper}>
                         {/*<div></div>*/}
                         <Structure shells={this.state.stage.structure}/>

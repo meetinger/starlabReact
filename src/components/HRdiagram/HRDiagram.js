@@ -13,103 +13,98 @@ export class HRDiagram extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            pointX: this.getXByTemperature(props.x),
-            pointY: this.getYByLuminosity(props.y)
+        if (props.track === undefined) {
+            this.state = {
+                pointX: this.getXByTemperature(props.x),
+                pointY: this.getYByLuminosity(props.y),
+                track: []
+            }
+        } else {
+            this.state = {
+                pointX: this.getXByTemperature(props.x),
+                pointY: this.getYByLuminosity(props.y),
+                track: props.track
+            }
         }
-        // this.state.pointX = props.x;
-        // this.state.pointY = props.y;
-        // this.setState({
-        //     pointX: this.props.x,
-        //     pointY: this.props.y
-        // });
-        console.log(this.state)
     }
+    
 
-    getYByLuminosity(val) {
-        return 100 -
-            (50 + Math.log10(val)*7)
+getYByLuminosity(val)
+{
+    return 100 -
+        (50 + Math.log10(val) * 7)
+}
+
+
+getXByTemperature(val)
+{
+    return 100 - Math.log10(val) * 80 + 268.2
+}
+
+componentWillReceiveProps(nextProps)
+{
+    this.setState({
+        pointX: this.getXByTemperature(nextProps.x),
+        pointY: this.getYByLuminosity(nextProps.y)
+    });
+}
+
+
+genList(a, b, multiplier)
+{
+    let buf = []
+    for (let i = Math.min(a, b); i <= Math.max(a, b); i *= multiplier) {
+        buf.push((<li>{i}</li>))
     }
+    return buf;
+}
 
+getPointsDist(a, b)
+{
+    return Math.sqrt(Math.pow(this.getXByTemperature(b.temperature) - this.getXByTemperature(a.temperature), 2) + Math.pow(this.getYByLuminosity(b.luminosity) - this.getYByLuminosity(a.luminosity), 2))
+}
 
-    getXByTemperature(val) {
-        return 100 - Math.log10(val)*80 + 268
+genTrack(arr)
+{
+    let divs = []
+    for (let i = 0; i < arr.length; ++i) {
+        //TODO add interpolation
+        divs.push(<div className={styles.track} style={{
+            top: "calc(" + this.getYByLuminosity(arr[i].luminosity) + "% - 0.1rem)",
+            left: "calc(" + this.getXByTemperature(arr[i].temperature) + "% - 0.1rem)"
+        }}/>)
     }
-
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            pointX: this.getXByTemperature(nextProps.x),
-            pointY: this.getYByLuminosity(nextProps.y)
-        });
-    }
+    return divs;
+}
 
 
-    genList(a, b, multiplier) {
-        let buf = []
-        for (let i = Math.min(a, b); i <= Math.max(a, b); i *= multiplier) {
-            buf.push((<li>{i}</li>))
-        }
-        return buf;
-    }
+render()
+{
+    return (
+        <div className={styles.HRDiagramWrapper}>
+            <div className={styles.hrheader}>Hertzsprung–Russell Diagram</div>
+            <div className={styles.HRDiagram}>
+                <div className={styles.point}
+                     style={{
+                         top: "calc(" + this.state.pointY + "% - 0.25rem)",
+                         left: "calc(" + this.state.pointX + "% - 0.25rem)"
+                     }}/>
+                <div></div>
+                {this.genTrack(this.state.track)}
+            </div>
+            <div className={styles.hrfooter}></div>
 
-    // componentDidMount() {
-    //     this.timerID = setInterval(
-    //         () => this.tick(),
-    //         500
-    //     );
-    // }
-    //
-    // componentWillUnmount() {
-    //     clearInterval(this.timerID);
-    // }
-    //
-    // tick() {
-    //     if(this.flag){
-    //         this.setState({
-    //             pointX:65,
-    //             pointY:75
-    //         });
-    //         this.flag=false
-    //     }else{
-    //         this.setState({
-    //             pointX:70,
-    //             pointY:20
-    //         });
-    //         this.flag=true;
-    //     }
-    //
-    //     console.log("X: " + this.getPointX() + " Y:" + this.getPointY())
-    //     console.log("StateX: " + this.state.x + " StateY:" + this.state.y)
-    //     console.log("State:",this.state)
-    //     console.log("Comp: " + this.getComponent())
-    //     // render()
-    // }
+        </div>);
+}
 
-    render() {
-        // console.log(11111)
-        // this.startTimer();
-        return (
-            // const
-            <div className={styles.HRDiagramWrapper}>
-                <div className={styles.hrheader}>Hertzsprung–Russell Diagram</div>
-                <div className={styles.HRDiagram}>
-                    <div className={styles.point}
-                         style={{top: "calc("+this.state.pointY + "% - 0.25rem)", left: "calc("+this.state.pointX + "% - 0.25rem)"}}/>
-                         <div></div>
-                </div>
-                <div className={styles.hrfooter}></div>
+getComponent()
+{
+    return (<HRDiagram x={this.state.pointX} y={this.state.pointY}/>);
+}
 
-            </div>);
-
-
-    }
-
-    getComponent() {
-        return (<HRDiagram x={this.state.pointX} y={this.state.pointY}/>);
-    }
-
-    getPoint() {
-        return this.point;
-    }
+getPoint()
+{
+    return this.point;
+}
 
 }
