@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import styles from './HRDiagram.module.scss'
 import {Point} from "../Point/Point";
 
+import diagrambg from './hrdiagram.png'
+
 // console.table(styles)
 
 export class HRDiagram extends React.Component {
@@ -90,22 +92,13 @@ export class HRDiagram extends React.Component {
         return (
             // const
             <div className={styles.HRDiagramWrapper}>
+                <div>Hertzsprung–Russell Diagram</div>
                 <div className={styles.HRDiagram}>
                     <div className={styles.point}
                          style={{top: this.state.pointY + "%", left: this.state.pointX + "%"}}/>
-                    <div className={styles.leftScale}>
-                        <ul>
-                            {this.genList(0.00001, 1000000, 10)}
-                        </ul>
-                    </div>
-
-                    <div className={styles.bottomScale}>
-                        <ul>
-                            {this.genList(1000, 100000, 10)}
-                        </ul>
-                    </div>
+                         <div></div>
                 </div>
-
+                {/*<div>lol</div>*/}
 
             </div>);
 
