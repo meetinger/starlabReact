@@ -9,7 +9,7 @@
   //width: 100%;
   //height: 100%;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   align-content: space-around;
   border: solid 0.2rem #00ccff;
@@ -81,4 +81,11 @@
   top:0;
   left:0;
   transition: 1s;
+}
+//$hrtextheight
+.hrheader{
+  height: 1rem;
+}
+.hrfooter{
+  height: 1rem;
 }

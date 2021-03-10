@@ -1,3 +1,5 @@
 node_modules/*
 .idea
 hrdiagramm.ai
+
+*.ai

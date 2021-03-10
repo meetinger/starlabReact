@@ -28,13 +28,13 @@ export class HRDiagram extends React.Component {
 
     getYByLuminosity(val) {
         return 100 -
-            (50 + Math.log10(val)*10)
+            (Math.log10(val)*10)
     }
 
 
     getXByTemperature(val) {
-        return 169-
-            ( + Math.log10(val)*27.5)
+        return 100 -
+            (50 + Math.log10(val)*10)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -92,13 +92,13 @@ export class HRDiagram extends React.Component {
         return (
             // const
             <div className={styles.HRDiagramWrapper}>
-                <div>Hertzsprung–Russell Diagram</div>
+                <div className={styles.hrheader}>Hertzsprung–Russell Diagram</div>
                 <div className={styles.HRDiagram}>
                     <div className={styles.point}
-                         style={{top: this.state.pointY + "%", left: this.state.pointX + "%"}}/>
+                         style={{top: "calc("+this.state.pointY + "% - 0.25rem)", left: "calc("+this.state.pointX + "% - 0.25rem)"}}/>
                          <div></div>
                 </div>
-                {/*<div>lol</div>*/}
+                <div className={styles.hrfooter}></div>
 
             </div>);
 

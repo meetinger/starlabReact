@@ -20,7 +20,7 @@ export class Main extends React.Component {
             ],
             properties: {
                 luminosity: 1,
-                temperature: 100000,
+                temperature: 1,
                 stage: "Main Sequence",
                 age: 0
             },
@@ -30,7 +30,7 @@ export class Main extends React.Component {
         //     structure: [{
         //         matter: "H",
         //         color: [255, 50, 0],
-        //         size: "20rem"
+        //         size: "25rem"
         //     }, {
         //         matter: "He",
         //         color: [255, 234, 100],
