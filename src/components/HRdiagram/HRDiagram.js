@@ -28,7 +28,7 @@ export class HRDiagram extends React.Component {
 
     getYByLuminosity(val) {
         return 100 -
-            (Math.log10(val)*10)
+            (50 + Math.log10(val)*7)
     }
 
 
