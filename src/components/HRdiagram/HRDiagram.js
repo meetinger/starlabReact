@@ -16,14 +16,12 @@ export class HRDiagram extends React.Component {
 
         if (props.track === undefined) {
             this.state = {
-                temperature: props.temperature,
-                luminosity: props.luminosity,
+                properties: props.properties,
                 track: []
             }
         } else {
             this.state = {
-                temperature: props.temperature,
-                luminosity: props.luminosity,
+                properties: props.properties,
                 track: props.track
             }
         }
@@ -45,8 +43,7 @@ getXByTemperature(val)
 componentWillReceiveProps(nextProps)
 {
     this.setState({
-        temperature: nextProps.temperature,
-        luminosity: nextProps.luminosity
+        properties: nextProps.properties,
     });
 }
 
@@ -83,12 +80,15 @@ render()
 {
     return (
         <div className={styles.HRDiagramWrapper}>
-            <div className={styles.hrheader}>Hertzsprung–Russell Diagram</div>
+            <div className={styles.hrheader}>
+                <div>Hertzsprung–Russell Diagram</div>
+                <div><b>Stage: </b>{this.state.properties.stage}</div>
+            </div>
             <div className={styles.HRDiagram}>
                 <div className={styles.point}
                      style={{
-                         top: "calc(" + this.getYByLuminosity(this.state.luminosity) + "% - 0.25rem)",
-                         left: "calc(" + this.getXByTemperature(this.state.temperature) + "% - 0.25rem)"
+                         top: "calc(" + this.getYByLuminosity(this.state.properties.luminosity) + "% - 0.25rem)",
+                         left: "calc(" + this.getXByTemperature(this.state.properties.temperature) + "% - 0.25rem)"
                      }}/>
                 <div></div>
                 {this.genTrack(this.state.track)}
@@ -96,16 +96,6 @@ render()
             <div className={styles.hrfooter}></div>
 
         </div>);
-}
-
-getComponent()
-{
-    return (<HRDiagram x={this.state.pointX} y={this.state.pointY}/>);
-}
-
-getPoint()
-{
-    return this.point;
 }
 
 }

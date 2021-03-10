@@ -22,7 +22,8 @@ export class Main extends React.Component {
                 luminosity: 1,
                 temperature: 5600,
                 stage: "Main Sequence",
-                age: 0
+                age: 0,
+                radius: 1
             },
             delay: 1000
         },
@@ -41,7 +42,8 @@ export class Main extends React.Component {
                 luminosity: 2,
                 temperature: 4000,
                 stage: "SubGiant",
-                age: 0
+                age: 0,
+                radius: 2
             },
             delay: 2000
         },
@@ -64,7 +66,8 @@ export class Main extends React.Component {
                 luminosity: 10,
                 temperature: 3000,
                 stage: "RGB",
-                age: 0
+                age: 0,
+                radius: 3
             },
             delay: 2000
         },
@@ -77,7 +80,12 @@ export class Main extends React.Component {
             stage: this.calculated[0]
         }
         this.start()
+        this.massField = React.createRef()
+        this.massFieldHandler = this.massFieldHandler.bind(this)
+    }
 
+    massFieldHandler(){
+        alert(this.massField.value)
     }
 
     setStage(stg) {
@@ -98,60 +106,77 @@ export class Main extends React.Component {
         }
     }
 
-    extractTrack() {
+    extractTrack(arr) {
         let track = []
-        for (let i of this.calculated) {
+        for (let i of arr) {
             track.push({luminosity: i.properties.luminosity, temperature: i.properties.temperature})
         }
         return track
     }
 
+    startAlert(){
+        alert(this.massField.value)
+    }
+
+
+
     render() {
-        let arr = [{
-            matter: "H",
-            color: [255, 50, 0],
-            size: "20rem"
-        }, {
-            matter: "He",
-            color: [255, 234, 100],
-            size: "10rem"
-        },
-            {
-                matter: "C",
-                color: [10, 10, 10],
-                size: "2rem"
-            }
-        ]
-
-        let track = []
-
 
         return (<div className={styles.main}>
             {Navbar}
             <div className={styles.body}>
-                <p>{this.state.stage.properties.stage}</p>
+                {/*<p>{this.state.stage.properties.stage}</p>*/}
                 <div className={styles.section}>
-                    <HRDiagram temperature={this.state.stage.properties.temperature} luminosity={this.state.stage.properties.luminosity}
-                               track={this.extractTrack()}/>
+                    <HRDiagram properties={this.state.stage.properties}
+                               track={this.extractTrack(this.calculated)}/>
                     <div className={styles.structureWrapper}>
                         {/*<div></div>*/}
                         <Structure shells={this.state.stage.structure}/>
                     </div>
                 </div>
                 <div>
-                    <div className="text-center margin-1rem">Properties:</div>
-                    <div className={styles.doubleInputGroup}>
-                        <div className={styles.inputGroup}>
-                            <div>
-                                <small className={styles.inputLabel}>Mass:</small>
+                    <div className={styles.properties}>
+                        <div style={{width: "55%"}}>
+
+                            <div className="input-group input-group-without-padding">
+                                <div>
+                                    <small className="input-label">Mass:</small>
+                                </div>
+                                <div>
+                                    <input ref={this.massField} className="input-field" type="text" placeholder="1"/>
+                                </div>
                             </div>
-                            <div>
-                                <input className={styles.inputField} type="text" placeholder="Mass"/>
-                            </div>
+                            <button onClick={this.massFieldHandler}>Start!</button>
+
+                        </div>
+                        <div style={{width: "45%"}}>
+                            <div><b>Age: </b>{this.state.stage.properties.age}</div>
+                            <div><b>Luminosity: </b>{this.state.stage.properties.luminosity}</div>
+                            <div><b>Temperature: </b>{this.state.stage.properties.temperature}</div>
+                            <div><b>Radius: </b>{this.state.stage.properties.radius}</div>
+                            <div><b>Stage: </b>{this.state.stage.properties.stage}</div>
                         </div>
                     </div>
+                    {/*<div className="text-center margin-1rem">Properties:</div>*/}
+                    {/*<div className={styles.doubleInputGroup}>*/}
+                    {/*    <div className={styles.inputGroup}>*/}
+                    {/*        <div>*/}
+                    {/*            <small className={styles.inputLabel}>Mass:</small>*/}
+                    {/*        </div>*/}
+                    {/*        <div>*/}
+                    {/*            <input className={styles.inputField} type="text" placeholder="Mass"/>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
                 </div>
             </div>
         </div>)
     }
+
+
+    calcEvolution(mass){
+        let calculated = []
+        let mainSequenceLifeTime=Math.pow(10, 10)*Math.pow(1.0/mass, 2.5)
+    }
+
 }

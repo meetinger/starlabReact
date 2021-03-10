@@ -19,7 +19,9 @@
   width: 100%;
 }
 .properties{
-
+  display: flex;
+  justify-content: space-evenly;
+  padding: 1rem;
 }
 
 .doubleInputGroup{

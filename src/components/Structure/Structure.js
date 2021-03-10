@@ -19,9 +19,6 @@ export class Structure extends React.Component {
     // }
     genShells(arr, index) {
         let i = arr[index];
-        // console.log(i)
-        //
-        // console.log("GENSHELLS: ",i)
 
         if (index < arr.length) {
             let shellStyle = {
@@ -57,35 +54,6 @@ export class Structure extends React.Component {
     componentWillReceiveProps(nextProps) {
         this.setState({ shells: nextProps.shells });
     }
-
-
-    // componentDidMount() {
-    //     this.timerID = setInterval(
-    //         () => this.tick(),
-    //         500
-    //     );
-    // }
-    //
-    // componentWillUnmount() {
-    //     clearInterval(this.timerID);
-    // }
-    //
-    // tick() {
-    //     let tmp = this.state.shells
-    //
-    //     let tmp_size = parseInt(tmp[0].size, 10)
-    //     if(tmp_size>15){
-    //         tmp[0].size = (tmp_size-5)+"rem"
-    //     }else{
-    //         tmp[0].size = (tmp_size+5)+"rem"
-    //     }
-    //
-    //     this.setState({
-    //         shells: tmp
-    //     });
-    //     // console.log(this.state.shells)
-    //     // render()
-    // }
 
     render() {
         console.log("RENDER: ",this.state.shells)

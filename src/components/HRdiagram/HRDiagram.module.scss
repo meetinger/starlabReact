@@ -13,6 +13,7 @@
   align-items: center;
   align-content: space-around;
   border: solid 0.2rem #00ccff;
+  border-radius: 0.5rem 0 0 0;
 
 
   .HRDiagram {
@@ -29,45 +30,6 @@
     //border-radius: 0.5rem 0 0.5rem 0;
 
     //align-items: end;
-
-    .leftScale {
-      //margin-top: -1rem;
-      height: 100%;
-      display: flex;
-      ul {
-        margin: 0.75rem 0;
-        padding: 0;
-        display: flex;
-        align-content: space-between;
-        flex-direction: column-reverse;
-        //height: 100%;
-        li{
-          display: block;
-          margin-top:auto;
-          margin-bottom:auto;
-          margin-right: auto;
-          margin-left: 0;
-        }
-      }
-    }
-
-    .bottomScale {
-      width: 100%;
-      display: flex;
-      align-content: end;
-      ul{
-        padding: 0;
-        display: flex;
-        width:100%;
-        flex-direction: row-reverse;
-        align-items: end;
-      }
-      li {
-        display: inline;
-        margin-left: auto;
-        margin-right: auto;
-      }
-    }
 
   }
 
@@ -94,6 +56,7 @@
 //$hrtextheight
 .hrheader{
   height: 1rem;
+  text-align: center;
 }
 .hrfooter{
   height: 1rem;
