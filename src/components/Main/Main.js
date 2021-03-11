@@ -154,7 +154,7 @@ export class Main extends React.Component {
                                track={this.extractTrack(this.state.calculated)}/>
                     <div className={styles.structureWrapper}>
                         {/*<div></div>*/}
-                        <Structure shells={this.state.stage.structure}/>
+                        <Structure stage={this.state.stage}/>
                     </div>
                 </div>
                 <div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Structure.module.scss'
+import {colorTemperatureToRGB} from "../../Utils";
 
 
 export class Structure extends React.Component {
@@ -26,7 +27,9 @@ export class Structure extends React.Component {
                 width: i.size,
                 height: i.size,
                 borderRadius: i.size,
-
+            }
+            if(index === 0){
+                shellStyle.backgroundColor = "rgb("+colorTemperatureToRGB(this.state.stage.properties.temperature)+")"
             }
             let labelStyle = {
                 color: "black"
@@ -42,21 +45,35 @@ export class Structure extends React.Component {
         }
     }
 
+    genStructure(stage){
+        if(stage.structure===false){
+            let style = {
+                backgroundColor: colorTemperatureToRGB(stage.properties.temperature),
+                width: stage.properties.radius,
+                height: stage.properties.radius,
+                borderRadius: stage.properties.radius,
+            }
+            return <div><div style={style} className={styles.shell}/></div>
+        }else {
+            return this.genShells(stage.structure, 0)
+        }
+    }
+
     constructor(props) {
         super(props);
         this.state = {
-            shells: props.shells,
+            stage: props.stage,
         }
         console.log("PROPS: ", props)
         // console.log("State: ",this.state)
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({ shells: nextProps.shells });
+        this.setState({ stage: nextProps.stage });
     }
 
     render() {
-        return (<div>{this.genShells(this.state.shells, 0)}</div>)
+        return (<div>{this.genStructure(this.state.stage)}</div>)
     }
 
 }
