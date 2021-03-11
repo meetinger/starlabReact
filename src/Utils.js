@@ -53,3 +53,29 @@ function clamp( x, min, max ) {
     return x;
 
 }
+
+export function getLuminosityByMassMS(m){
+    if(m < 0.43)
+        return 0.23*Math.pow(m, 2.3)
+    else if(m < 2)
+        return Math.pow(m, 4)
+    else if(m < 20)
+        return 1.5*Math.pow(m,3.5)
+    else return 3200*m
+}
+
+export function getMSLifetimeByMass(m){
+    return Math.pow(m, -2.5)
+}
+
+export function getTemperatureByMassMS(m){
+    return 5740*Math.pow(m, 0.54)+273.15
+}
+
+export function getRadius(L0, T){
+    let L = 3.828*Math.pow(10, 26)
+
+    let R = Math.sqrt(L/(4*Math.PI*5.67*Math.pow(10, -8)*Math.pow(T, 4)))
+    let R0 = R/(696340000)
+    return R0
+}

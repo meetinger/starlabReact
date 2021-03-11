@@ -5,6 +5,7 @@ import {HRDiagram} from "../HRdiagram/HRDiagram";
 import {Structure} from "../Structure/Structure";
 import {TextField} from "../TextField/TextField";
 import {useRef} from "react/cjs/react.production.min";
+import {getLuminosityByMassMS, getTemperatureByMassMS} from "../../Utils";
 
 export class Main extends React.Component {
     // let
@@ -204,28 +205,43 @@ export class Main extends React.Component {
         let calculated = []
         let mainSequenceLifeTime = Math.pow(10, 10) * Math.pow(1.0 / mass, 2.5)
         let mainSequence = []
-        for (let i = 0; i < mainSequenceLifeTime; i += mainSequenceLifeTime / 10) {
-            let counter = i / mainSequenceLifeTime * 10
+        // for (let i = 0; i < mainSequenceLifeTime; i += mainSequenceLifeTime / 10) {
+        //     let counter = i / mainSequenceLifeTime * 10
+        //     mainSequence.push({
+        //         structure: [{
+        //             matter: "H",
+        //             color: [255, 50, 0],
+        //             size: 5 + counter + "rem"
+        //         }, {
+        //             matter: "He",
+        //             color: [255, 234, 100],
+        //             size: 1 + counter/2+"rem"
+        //         }
+        //         ],
+        //         properties: {
+        //             luminosity: 1+counter/10,
+        //             temperature: 5600-counter*100,
+        //             stage: "Main Sequence",
+        //             age: i,
+        //             radius: counter
+        //         },
+        //         delay: 1000
+        //     })
+        // }
+        for (let i = 0.1; i < 40; i+=0.01) {
             mainSequence.push({
-                structure: [{
-                    matter: "H",
-                    color: [255, 50, 0],
-                    size: 5 + counter + "rem"
-                }, {
-                    matter: "He",
-                    color: [255, 234, 100],
-                    size: 1 + counter/2+"rem"
-                }
-                ],
+                structure: [],
                 properties: {
-                    luminosity: 1+counter/10,
-                    temperature: 5600-counter*100,
+                    luminosity: getLuminosityByMassMS(i),
+                    temperature: getTemperatureByMassMS(i),
                     stage: "Main Sequence",
                     age: i,
-                    radius: counter
+                    radius: i
                 },
                 delay: 1000
+
             })
+
         }
         return mainSequence
     }
