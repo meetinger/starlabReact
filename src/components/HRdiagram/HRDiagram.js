@@ -44,6 +44,7 @@ componentWillReceiveProps(nextProps)
 {
     this.setState({
         properties: nextProps.properties,
+        track: nextProps.track
     });
 }
 
@@ -72,6 +73,8 @@ genTrack(arr)
             left: "calc(" + this.getXByTemperature(arr[i].temperature) + "% - 0.1rem)"
         }}/>)
     }
+    console.log("GENRTRACK ARR",arr)
+    console.log("GENRTRACK",divs)
     return divs;
 }
 
@@ -90,10 +93,10 @@ render()
                          top: "calc(" + this.getYByLuminosity(this.state.properties.luminosity) + "% - 0.25rem)",
                          left: "calc(" + this.getXByTemperature(this.state.properties.temperature) + "% - 0.25rem)"
                      }}/>
-                <div></div>
+                <div/>
                 {this.genTrack(this.state.track)}
             </div>
-            <div className={styles.hrfooter}></div>
+            <div className={styles.hrfooter}/>
 
         </div>);
 }

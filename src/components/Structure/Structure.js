@@ -56,8 +56,7 @@ export class Structure extends React.Component {
     }
 
     render() {
-        console.log("RENDER: ",this.state.shells)
-        return this.genShells(this.state.shells, 0)
+        return (<div>{this.genShells(this.state.shells, 0)}</div>)
     }
 
 }
