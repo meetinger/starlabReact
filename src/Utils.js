@@ -36,11 +36,11 @@ export function colorTemperatureToRGB(kelvin){
     }
 
 
-    return {
-        r : clamp(red,   0, 255),
-        g : clamp(green, 0, 255),
-        b : clamp(blue,  0, 255)
-    }
+    return [
+        clamp(red,   0, 255),
+        clamp(green, 0, 255),
+        clamp(blue,  0, 255)
+    ]
 
 }
 

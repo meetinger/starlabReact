@@ -5,7 +5,7 @@ import {HRDiagram} from "../HRdiagram/HRDiagram";
 import {Structure} from "../Structure/Structure";
 import {TextField} from "../TextField/TextField";
 import {useRef} from "react/cjs/react.production.min";
-import {getLuminosityByMassMS, getTemperatureByMassMS} from "../../Utils";
+import {colorTemperatureToRGB, getLuminosityByMassMS, getTemperatureByMassMS} from "../../Utils";
 
 export class Main extends React.Component {
     // let
@@ -113,10 +113,10 @@ export class Main extends React.Component {
     start(arr) {
         let delay = 0;
         // for (let j = 0; j < 5; ++j) {
-            for (let i of arr) {
-                delay += i.delay
-                setTimeout(this.setStage.bind(this), delay, i);
-            }
+        for (let i of arr) {
+            delay += i.delay
+            setTimeout(this.setStage.bind(this), delay, i);
+        }
         // }
     }
 
@@ -133,7 +133,7 @@ export class Main extends React.Component {
         console.log("CLICKED!")
         const form = this.massForm.current
         let mass = `${form['mass'].value}`
-        console.log("MASS: ",mass)
+        console.log("MASS: ", mass)
         let calculatedEvo = this.calcEvolution(mass);
         console.log("Calculated:", calculatedEvo)
         this.setState({
@@ -228,9 +228,15 @@ export class Main extends React.Component {
         //         delay: 1000
         //     })
         // }
-        for (let i = 0.1; i < 40; i+=0.01) {
+        for (let i = 0.1; i < 40; i += 0.05) {
             mainSequence.push({
-                structure: [],
+                structure: [
+                    {
+                        matter: "H",
+                        color: colorTemperatureToRGB(getTemperatureByMassMS(i)),
+                        size: 20 + "rem"
+                    }
+                ],
                 properties: {
                     luminosity: getLuminosityByMassMS(i),
                     temperature: getTemperatureByMassMS(i),
