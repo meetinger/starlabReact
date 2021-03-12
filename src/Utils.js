@@ -69,13 +69,17 @@ export function getMSLifetimeByMass(m){
 }
 
 export function getTemperatureByMassMS(m){
-    return 5740*Math.pow(m, 0.54)+273.15
+    return 5740*Math.pow(m, 0.54)
 }
 
 export function getRadius(L0, T){
-    let L = 3.828*Math.pow(10, 26)
+    let L = 3.828*Math.pow(10, 26)*L0
 
     let R = Math.sqrt(L/(4*Math.PI*5.67*Math.pow(10, -8)*Math.pow(T, 4)))
     let R0 = R/(696340000)
     return R0
+}
+
+export function map(x, in_min, in_max, out_min, out_max){
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }

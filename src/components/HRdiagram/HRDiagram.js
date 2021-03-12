@@ -73,8 +73,8 @@ genTrack(arr)
             left: "calc(" + this.getXByTemperature(arr[i].temperature) + "% - 0.1rem)"
         }}/>)
     }
-    console.log("GENRTRACK ARR",arr)
-    console.log("GENRTRACK",divs)
+    // console.log("GENRTRACK ARR",arr)
+    // console.log("GENRTRACK",divs)
     return divs;
 }
 
