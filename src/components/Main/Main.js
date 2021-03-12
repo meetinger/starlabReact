@@ -5,7 +5,7 @@ import {HRDiagram} from "../HRdiagram/HRDiagram";
 import {Structure} from "../Structure/Structure";
 import {TextField} from "../TextField/TextField";
 import {useRef} from "react/cjs/react.production.min";
-import {colorTemperatureToRGB, getLuminosityByMassMS, getTemperatureByMassMS} from "../../Utils";
+import {colorTemperatureToRGB, getLuminosityByMassMS, getRadius, getTemperatureByMassMS, map} from "../../Utils";
 
 export class Main extends React.Component {
     // let
@@ -122,7 +122,7 @@ export class Main extends React.Component {
 
     extractTrack(arr) {
         let track = []
-        console.log("TRACK", arr)
+        // console.log("TRACK", arr)
         for (let i of arr) {
             track.push({luminosity: i.properties.luminosity, temperature: i.properties.temperature})
         }
@@ -177,7 +177,7 @@ export class Main extends React.Component {
 
                         </div>
                         <div style={{width: "45%"}}>
-                            <div><b>Age: </b>{this.state.stage.properties.age}</div>
+                            <div><b>Age: </b>{this.state.stage.properties.age} Myrs</div>
                             <div><b>Luminosity: </b>{this.state.stage.properties.luminosity}</div>
                             <div><b>Temperature: </b>{this.state.stage.properties.temperature}</div>
                             <div><b>Radius: </b>{this.state.stage.properties.radius}</div>
@@ -203,7 +203,7 @@ export class Main extends React.Component {
 
     calcEvolution(mass) {
         let calculated = []
-        let mainSequenceLifeTime = Math.pow(10, 10) * Math.pow(1.0 / mass, 2.5)
+        let mainSequenceLifeTime = Math.pow(10, 10) * Math.pow(1.0 / mass, 2.5)/1000000
         let mainSequence = []
         // for (let i = 0; i < mainSequenceLifeTime; i += mainSequenceLifeTime / 10) {
         //     let counter = i / mainSequenceLifeTime * 10
@@ -228,26 +228,46 @@ export class Main extends React.Component {
         //         delay: 1000
         //     })
         // }
-        for (let i = 0.1; i < 40; i += 0.05) {
+        // for (let i = 0.1; i < 40; i += 0.1) {
+        //     mainSequence.push({
+        //         structure: [
+        //             {
+        //                 matter: "H",
+        //                 color: colorTemperatureToRGB(getTemperatureByMassMS(i)),
+        //                 size: 20 + "rem"
+        //             }
+        //         ],
+        //         properties: {
+        //             luminosity: getLuminosityByMassMS(i),
+        //             temperature: getTemperatureByMassMS(i),
+        //             stage: "Main Sequence",
+        //             age: i,
+        //             radius: i
+        //         },
+        //         delay: 1000
+        //
+        //     })
+        //
+        // }
+        for(let i = 0;i<=mainSequenceLifeTime;i+=mainSequenceLifeTime/50){
+            // console.log("CALCULATING: ", i*100/mainSequenceLifeTime+"% DONE!")
+
+            let Ltmp = getLuminosityByMassMS(mass)
+            let L0 = Ltmp+map(i,0,mainSequenceLifeTime, 0, Ltmp*0.4)
+
+            let Ttmp = getTemperatureByMassMS(mass)
+            let T = Ttmp-map(i,0,mainSequenceLifeTime, 0, Ttmp*0.1)
             mainSequence.push({
-                structure: [
-                    {
-                        matter: "H",
-                        color: colorTemperatureToRGB(getTemperatureByMassMS(i)),
-                        size: 20 + "rem"
-                    }
-                ],
+                structure: false,
                 properties: {
-                    luminosity: getLuminosityByMassMS(i),
-                    temperature: getTemperatureByMassMS(i),
+                    luminosity: L0,
+                    temperature: T,
                     stage: "Main Sequence",
                     age: i,
-                    radius: i
+                    radius: getRadius(L0, T)
                 },
-                delay: 1000
-
+                delay: 100
             })
-
         }
         return mainSequence
     }

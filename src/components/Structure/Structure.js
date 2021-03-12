@@ -48,10 +48,10 @@ export class Structure extends React.Component {
     genStructure(stage){
         if(stage.structure===false){
             let style = {
-                backgroundColor: colorTemperatureToRGB(stage.properties.temperature),
-                width: stage.properties.radius,
-                height: stage.properties.radius,
-                borderRadius: stage.properties.radius,
+                backgroundColor: "rgb("+colorTemperatureToRGB(stage.properties.temperature)+")",
+                width: stage.properties.radius+"rem",
+                height: stage.properties.radius+"rem",
+                borderRadius: stage.properties.radius+"rem",
             }
             return <div><div style={style} className={styles.shell}/></div>
         }else {
