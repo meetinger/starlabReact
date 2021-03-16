@@ -4,6 +4,7 @@ import styles from './HRDiagram.module.scss'
 import {Point} from "../Point/Point";
 
 import diagrambg from './hrdiagram.png'
+import {map} from "../../Utils";
 
 // console.table(styles)
 
@@ -37,7 +38,8 @@ getYByLuminosity(val)
 
 getXByTemperature(val)
 {
-    return 100 - Math.log10(val) * 80 + 268.2
+    return 100 - Math.log10(val) * 59.1 + 182.7
+    // return map(val,1500, 500000)
 }
 
 componentWillReceiveProps(nextProps)
@@ -69,8 +71,8 @@ genTrack(arr)
     for (let i = 0; i < arr.length; ++i) {
         //TODO add interpolation
         divs.push(<div className={styles.track} style={{
-            top: "calc(" + this.getYByLuminosity(arr[i].luminosity) + "% - 0.1rem)",
-            left: "calc(" + this.getXByTemperature(arr[i].temperature) + "% - 0.1rem)"
+            top: "calc(" + this.getYByLuminosity(arr[i].luminosity) + "% - 0.075rem)",
+            left: "calc(" + this.getXByTemperature(arr[i].temperature) + "% - 0.075rem)"
         }}/>)
     }
     // console.log("GENRTRACK ARR",arr)

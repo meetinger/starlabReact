@@ -1,3 +1,5 @@
+import {data} from "./db/mass1.mjs";
+
 export function colorTemperatureToRGB(kelvin){
 
     var temp = kelvin / 100;
@@ -82,4 +84,28 @@ export function getRadius(L0, T){
 
 export function map(x, in_min, in_max, out_min, out_max){
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+export function convertToStarLab(data){
+
+    let stages = { 0 : "deeply or fully convective low mass MS star", 1 : "Main Sequence star", 2 : "Hertzsprung Gap", 3 : "First Giant Branch", 4 : "Core Helium Burning", 5 : "First Asymptotic Giant Branch", 6 : "Second Asymptotic Giant Branch", 7 : "Main Sequence Naked Helium star", 8 : "Hertzsprung Gap Naked Helium star",9 : "Giant Branch Naked Helium star",10 : "Helium White Dwarf",11 : "Carbon/Oxygen White Dwarf",12 : "Oxygen/Neon White Dwarf",13 : "Neutron Star",14: "Black Hole",15: "Massless Supernova"}
+
+    let ext = data["data"]
+
+    let converted = []
+
+    for(let i of ext){
+        converted.push({
+            structure: false,
+            properties:{
+                luminosity: i.lum,
+                temperature: i.temp,
+                stage: stages[i.type],
+                age: i.t,
+                radius: i.radius,
+                mass: i.mass
+            }
+        })
+    }
+    return converted
 }

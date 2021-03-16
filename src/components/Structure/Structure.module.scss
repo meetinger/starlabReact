@@ -5,15 +5,19 @@
   margin: auto;
   transition: 0.25s;
   border: solid 0.1px gray;
+  //max-width: 25rem;
+  //max-height: 25rem;
+  border-radius: 25rem;
 }
 .matterLabel{
   margin: auto;
   position: absolute;
 }
-//.structureWrapper{
-//  align-items: center;
-//  align-content: center;
-//  justify-content: center;
-//  height: 100%;
-//  width: 100%;
-//}
+.structureWrapper{
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  height: 25rem;
+  width: 25rem;
+}

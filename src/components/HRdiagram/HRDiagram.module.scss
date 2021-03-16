@@ -39,7 +39,7 @@
   width: 0.5rem;
   height: 0.5rem;
   border-radius: 3rem;
-  background-color: rgba(255, 0, 0,0.75);
+  background-color: rgba(255, 0, 0,0.5);
   z-index: 2;
   top:0;
   left:0;
@@ -47,8 +47,8 @@
 }
 .track{
   position: absolute;
-  width: 0.2rem;
-  height: 0.2rem;
+  width: 0.15rem;
+  height: 0.15rem;
   z-index: 0;
   background-color: gray;
   border-radius: 0.5rem;

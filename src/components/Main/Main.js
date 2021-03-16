@@ -3,9 +3,17 @@ import styles from './Main.module.scss'
 import {Navbar} from "../Navbar/Navbar";
 import {HRDiagram} from "../HRdiagram/HRDiagram";
 import {Structure} from "../Structure/Structure";
+import {data} from "../../db/mass1.mjs"
 import {TextField} from "../TextField/TextField";
 import {useRef} from "react/cjs/react.production.min";
-import {colorTemperatureToRGB, getLuminosityByMassMS, getRadius, getTemperatureByMassMS, map} from "../../Utils";
+import {
+    colorTemperatureToRGB,
+    convertToStarLab,
+    getLuminosityByMassMS,
+    getRadius,
+    getTemperatureByMassMS,
+    map
+} from "../../Utils";
 
 export class Main extends React.Component {
     // let
@@ -87,14 +95,15 @@ export class Main extends React.Component {
                 structure: [{
                     matter: "H",
                     color: [255, 50, 0],
-                    size: "20rem"
+                    size: "10"
                 }],
                 properties: {
                     luminosity: 0,
                     temperature: 0,
                     stage: "",
                     age: 0,
-                    radius: 0
+                    radius: 0,
+                    mass: 0
                 }
             }
         }
@@ -134,7 +143,7 @@ export class Main extends React.Component {
         const form = this.massForm.current
         let mass = `${form['mass'].value}`
         console.log("MASS: ", mass)
-        let calculatedEvo = this.calcEvolution(mass);
+        let calculatedEvo = this.calcEvolution(parseInt(mass));
         console.log("Calculated:", calculatedEvo)
         this.setState({
             calculated: calculatedEvo
@@ -178,9 +187,10 @@ export class Main extends React.Component {
                         </div>
                         <div style={{width: "45%"}}>
                             <div><b>Age: </b>{this.state.stage.properties.age} Myrs</div>
-                            <div><b>Luminosity: </b>{this.state.stage.properties.luminosity}</div>
-                            <div><b>Temperature: </b>{this.state.stage.properties.temperature}</div>
-                            <div><b>Radius: </b>{this.state.stage.properties.radius}</div>
+                            <div><b>Luminosity: </b>{this.state.stage.properties.luminosity.toFixed(2)}</div>
+                            <div><b>Temperature: </b>{this.state.stage.properties.temperature.toFixed(0)}</div>
+                            <div><b>Radius: </b>{this.state.stage.properties.radius.toFixed(2)}</div>
+                            <div><b>Mass: </b>{this.state.stage.properties.mass.toFixed(2)}</div>
                             <div><b>Stage: </b>{this.state.stage.properties.stage}</div>
                         </div>
                     </div>
@@ -203,8 +213,87 @@ export class Main extends React.Component {
 
     calcEvolution(mass) {
         let calculated = []
-        let mainSequenceLifeTime = Math.pow(10, 10) * Math.pow(1.0 / mass, 2.5)/1000000
+        let mainSequenceLifeTime = Math.pow(10, 10) * Math.pow(1.0 / mass, 2.5) / 1000000
         let mainSequence = []
+
+        calculated = convertToStarLab(data)
+
+        // if (mass === 1) {
+        //     for (let i = 100; i < 7370; i+=30) {
+        //         let tL0 = map(i, 100, 7370, 0.7, 1.3)
+        //         let tT = map(i, 100, 7370, 5580, 5841)
+        //         calculated.push({
+        //                 structure: false,
+        //                 properties: {
+        //                     luminosity: tL0,
+        //                     temperature: tT,
+        //                     stage: "Main Sequence",
+        //                     age: i,
+        //                     radius: getRadius(tL0, tT),
+        //                     mass: mass
+        //                 },
+        //                 delay: 20
+        //
+        //             }
+        //         )
+        //     }
+        //
+        //     for (let i = 7370; i < 10400; i+=20) {
+        //         let tL0 = map(i, 7370, 10400, 1.3, 1.9)
+        //         let tT = map(i, 7370,  10400, 5675, 5841)
+        //         calculated.push({
+        //                 structure: false,
+        //                 properties: {
+        //                     luminosity: tL0,
+        //                     temperature: tT,
+        //                     stage: "Main Sequence",
+        //                     age: i,
+        //                     radius: getRadius(tL0, tT),
+        //                     mass: mass
+        //                 },
+        //                 delay: 30
+        //
+        //             }
+        //         )
+        //     }
+        //
+        //     for (let i = 10400; i < 11600; i+=20) {
+        //         let tL0 = map(i, 10400, 11600, 1.9, 2.7)
+        //         let tT = map(i, 10400,  11600, 5675, 4900)
+        //         calculated.push({
+        //                 structure: false,
+        //                 properties: {
+        //                     luminosity: tL0,
+        //                     temperature: tT,
+        //                     stage: "Subgiant",
+        //                     age: i,
+        //                     radius: getRadius(tL0, tT),
+        //                     mass: mass
+        //                 },
+        //                 delay: 100
+        //
+        //             }
+        //         )
+        //     }
+        //     for (let i = 11600; i < 12250; i+=1) {
+        //         let tL0 = map(i, 11600, 12250, 2.7, 2500)
+        //         let tT = map(i, 11600,  12250, 4900, 3000)
+        //         calculated.push({
+        //                 structure: false,
+        //                 properties: {
+        //                     luminosity: tL0,
+        //                     temperature: tT,
+        //                     stage: "Giant",
+        //                     age: i,
+        //                     radius: getRadius(tL0, tT),
+        //                     mass: map(i, 11600,  12250, 1, 0.75)
+        //                 },
+        //                 delay: 100
+        //
+        //             }
+        //         )
+        //     }
+        // }
         // for (let i = 0; i < mainSequenceLifeTime; i += mainSequenceLifeTime / 10) {
         //     let counter = i / mainSequenceLifeTime * 10
         //     mainSequence.push({
@@ -228,48 +317,44 @@ export class Main extends React.Component {
         //         delay: 1000
         //     })
         // }
-        // for (let i = 0.1; i < 40; i += 0.1) {
+        // for (let i = 0.1; i < 100; i += 0.1) {
         //     mainSequence.push({
-        //         structure: [
-        //             {
-        //                 matter: "H",
-        //                 color: colorTemperatureToRGB(getTemperatureByMassMS(i)),
-        //                 size: 20 + "rem"
-        //             }
-        //         ],
+        //         structure: false,
         //         properties: {
         //             luminosity: getLuminosityByMassMS(i),
         //             temperature: getTemperatureByMassMS(i),
         //             stage: "Main Sequence",
         //             age: i,
-        //             radius: i
+        //             radius: i,
+        //             mass: i
         //         },
         //         delay: 1000
         //
         //     })
         //
         // }
-        for(let i = 0;i<=mainSequenceLifeTime;i+=mainSequenceLifeTime/50){
-            // console.log("CALCULATING: ", i*100/mainSequenceLifeTime+"% DONE!")
+        // for(let i = 0;i<=mainSequenceLifeTime;i+=mainSequenceLifeTime/50){
+        //     // console.log("CALCULATING: ", i*100/mainSequenceLifeTime+"% DONE!")
+        //
+        //     let Ltmp = getLuminosityByMassMS(mass)
+        //     let L0 = Ltmp+map(i,0,mainSequenceLifeTime, 0, Ltmp*0.4)
+        //
+        //     let Ttmp = getTemperatureByMassMS(mass)
+        //     let T = Ttmp-map(i,0,mainSequenceLifeTime, 0, Ttmp*0.1)
+        //     mainSequence.push({
+        //         structure: false,
+        //         properties: {
+        //             luminosity: L0,
+        //             temperature: T,
+        //             stage: "Main Sequence",
+        //             age: i,
+        //             radius: getRadius(L0, T)
+        //         },
+        //         delay: 100
+        //     })
+        // }
 
-            let Ltmp = getLuminosityByMassMS(mass)
-            let L0 = Ltmp+map(i,0,mainSequenceLifeTime, 0, Ltmp*0.4)
-
-            let Ttmp = getTemperatureByMassMS(mass)
-            let T = Ttmp-map(i,0,mainSequenceLifeTime, 0, Ttmp*0.1)
-            mainSequence.push({
-                structure: false,
-                properties: {
-                    luminosity: L0,
-                    temperature: T,
-                    stage: "Main Sequence",
-                    age: i,
-                    radius: getRadius(L0, T)
-                },
-                delay: 100
-            })
-        }
-        return mainSequence
+        return calculated
     }
 
 }

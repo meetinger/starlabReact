@@ -18,18 +18,30 @@ export class Structure extends React.Component {
     //
     //
     // }
+    divider = 1;
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            stage: props.stage,
+        }
+        console.log("PROPS: ", props)
+        // console.log("State: ",this.state)
+    }
+
     genShells(arr, index) {
         let i = arr[index];
 
         if (index < arr.length) {
             let shellStyle = {
                 backgroundColor: "rgb(" + i.color + ")",
-                width: i.size,
-                height: i.size,
-                borderRadius: i.size,
+                width: (parseFloat(i.size) / this.divider) + "rem",
+                height: (parseFloat(i.size) / this.divider) + "rem",
             }
-            if(index === 0){
-                shellStyle.backgroundColor = "rgb("+colorTemperatureToRGB(this.state.stage.properties.temperature)+")"
+            console.log("DIVIDER:", this.divider)
+            console.log("WIDTH:", shellStyle.width)
+            if (index === 0) {
+                shellStyle.backgroundColor = "rgb(" + colorTemperatureToRGB(this.state.stage.properties.temperature) + ")"
             }
             let labelStyle = {
                 color: "black"
@@ -45,35 +57,59 @@ export class Structure extends React.Component {
         }
     }
 
-    genStructure(stage){
-        if(stage.structure===false){
+    getDivider(radius) {
+        let i = 1
+        while (2 * parseInt(radius) / i > 24) {
+            i *= 10;
+        }
+        console.log("getDivider: ", i)
+        return i;
+    }
+
+    genStructure(stage) {
+        if (stage.structure === false) {
+
+            this.divider = this.getDivider(stage.properties.radius)
+
             let style = {
-                backgroundColor: "rgb("+colorTemperatureToRGB(stage.properties.temperature)+")",
-                width: stage.properties.radius+"rem",
-                height: stage.properties.radius+"rem",
-                borderRadius: stage.properties.radius+"rem",
+                backgroundColor: "rgb(" + colorTemperatureToRGB(stage.properties.temperature) + ")",
+                width: 2 * parseFloat(stage.properties.radius) / this.divider + "rem",
+                height: 2 * parseFloat(stage.properties.radius) / this.divider + "rem",
+                borderRadius: 2 * parseFloat(stage.properties.radius) / this.divider + "rem",
             }
-            return <div><div style={style} className={styles.shell}/></div>
-        }else {
+            return <div>
+                <div style={style} className={styles.shell}/>
+            </div>
+        } else {
+
+            this.divider = this.getDivider(stage.structure[0].size)
+
             return this.genShells(stage.structure, 0)
         }
     }
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            stage: props.stage,
-        }
-        console.log("PROPS: ", props)
-        // console.log("State: ",this.state)
-    }
-
     componentWillReceiveProps(nextProps) {
-        this.setState({ stage: nextProps.stage });
+        this.setState({
+            stage: nextProps.stage,
+        });
     }
 
     render() {
-        return (<div>{this.genStructure(this.state.stage)}</div>)
+        let curStructure = this.genStructure(this.state.stage)
+        if (this.divider===1) {
+            return <div className={styles.structureWrapper}>
+                <div>{curStructure}</div>
+            </div>
+        } else {
+            return (
+                <div>
+                    <div className={styles.structureWrapper}>
+                        <div>{curStructure}
+                        </div>
+                    </div>
+                    <div style={{textAlign:"right"}}>Scale: 1/{this.divider}</div>
+                </div>)
+        }
     }
 
 }
