@@ -98,12 +98,12 @@ export function convertToStarLab(data){
         converted.push({
             structure: false,
             properties:{
-                luminosity: i.lum,
-                temperature: i.temp,
+                luminosity: parseFloat(i.lum),
+                temperature: parseFloat(i.temp),
                 stage: stages[i.type],
-                age: i.t,
-                radius: i.radius,
-                mass: i.mass
+                age: parseFloat(i.t),
+                radius: parseFloat(i.radius),
+                mass: parseFloat(i.mass)
             }
         })
     }
